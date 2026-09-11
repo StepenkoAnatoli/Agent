@@ -1,0 +1,218 @@
+{
+  "$comment": "Control-plane state for the deep-research mission 'Claude Code / ChatGPT / Arena.ai and how to build the best'. Reflects ACTUAL state as of 2026-09-11, not intended state. Companion to /DEEP_RESEARCH_REPORT.md.",
+
+  "mission": {
+    "objective": "Produce accurate, decision-useful understanding of Claude Code, ChatGPT/Codex, and Arena.ai, and derive a reliable blueprint for building the best such agent system — ONE system; research documented as the project core",
+    "decision": "USER-DECIDED (2026-09-11): Path A — no build; use the best existing agents (Arena Agent Mode primary, ChatGPT/Codex and Claude Code complementary) for research & knowledge work. The research corpus is the deliverable and the operating manual (docs/core/10-operations-pathA.md). Audience recommendation (user asked to suggest): individual researcher / knowledge worker on Windows, web-first, zero-terminal default.",
+    "task_type": "mixed: deep_research + research_architecture + security_analysis + reliability_bug_analysis + knowledge_base_construction + primary_verification + operations_playbook",
+    "status": "RESEARCH_COMPLETE (core KB: 11 files + 2 report artifacts) · PATH_A_REGISTERED · GIT_COMMIT_PUSH_AUTHORIZED_AND_EXECUTED"
+  },
+
+  "modes": {
+    "research": true,
+    "deep_research": true,
+    "data_accuracy": false,
+    "architecture_audit": false,
+    "reliability": true,
+    "security": true,
+    "agent_evaluation": false,
+    "implementation": false,
+    "maintenance": false,
+    "monitoring": true,
+    "finalization": false
+  },
+
+  "research": {
+    "questions": [
+      "What is each system (Claude Code, ChatGPT/Codex, Arena.ai)?",
+      "How does each work architecturally?",
+      "What is the shared engineering core?",
+      "What makes such systems 'best' per evidence?",
+      "What are the dominant failure modes and security threats?",
+      "What should this repo's owner build, in what order?"
+    ],
+    "decision_relevance": {
+      "harness_vs_model": "BLOCKING — determines entire build strategy; resolved: build harness on frontier APIs",
+      "build_order": "MATERIAL — resolved from incumbent evolution order + Anthropic guidance",
+      "security_posture": "BLOCKING for any product path — resolved: containment-first, OS-enforced",
+      "benchmark_exactness": "NON-MATERIAL — direction consistent; conflicts preserved",
+      "user_constraints_budget_audience": "BLOCKING for final scoping — UNRESOLVED, needs user decision (three conditional paths provided)"
+    },
+    "passes_completed": 10,
+    "passes": ["establish", "fill_gaps", "independent_verification", "attack", "reconcile", "decision_test", "bugfix_challenge_research", "exhaustive_domain_research", "primary_verification_and_material_research", "rag_research_and_operations_playbook"],
+    "material_unknowns": [
+      "Arena Agent Mode internal architecture (isolation tech, routing, eval scoring)",
+      "Arena public status/incident history — no official bug tracker found",
+      "Model release churn — quarterly re-evaluation required",
+      "User budget/team/audience/target platform (Windows vs cloud) + build path A/B/C — THE blocking decision (scope question asked 2026-09-11)",
+      "M3-M10 material research gaps (docs/core/09 §0): M4 CLOSED this pass (03 §3.8); M3, M5-M10 OUT OF SCOPE per user decision (Path A, research scope) — parked, re-open on scope change. M1 and M2 CLOSED (07 §7.6, 02 §2.8)",
+      "B3 git provenance — CLOSED by user: commit & push authorized and executed 2026-09-11"
+    ],
+    "blocking_unknowns": [
+      "User decision: which build path (A/B/C) and constraints"
+    ],
+    "contradictions": [
+      "C1: SWE-bench values differ 5-7 pts across aggregators for same model — unresolved, flagged CONTESTED",
+      "C2: Claude Code browser-use claims conflict — likely definitional, UNKNOWN",
+      "C3: Claude-vs-ChatGPT verdicts conflict — resolved as task-dependent",
+      "C4: Pricing tiers beyond $20/mo vary — non-material",
+      "C5: Leaderboard-vs-real-task validity — resolved via own-task eval strategy"
+    ],
+    "stopping_reason": "Residual uncertainty (exact benchmark values, vendor internals, user constraints) cannot change the core decision; further research has diminishing expected decision value. Stopped per expected-decision-value rule. NOTE: exhaustive domain research (pass 8) covered all identified topics — frameworks, memory, protocols, evals, observability, cost/routing, multi-agent, durable execution, sandboxes, OSS landscape, prompt engineering, compliance, UX — documented in docs/core/.",
+    "locked_decisions": [
+      "D1: one system = harness on frontier APIs, never a trained model",
+      "D2: build order eval -> sandbox -> loop -> context -> product",
+      "D3: containment-first security (OS-enforced sandbox + deterministic action policy)",
+      "D4: eval-driven development; private hidden-oracle evals over public leaderboards",
+      "D5: session state and metering are tested subsystems from day one",
+      "D6: Windows-first distribution as signature surface (PROPOSED — user-dependent)"
+    ]
+  },
+
+  "evidence": {
+    "established_facts": [
+      "All three systems are the same core agent loop: model + tools + sandbox + context + permissions",
+      "Claude Code is terminal-first with CLAUDE.md, skills, subagents, MCP, hooks, sandboxed Bash, Agent SDK (official docs)",
+      "Codex leads Terminal-Bench 2.0 (77.3%, Feb 2026) and offers cloud tasks + computer use (multiple independent sources, incl. OpenAI-reported 4M weekly users June 2026)",
+      "Arena Agent Mode launched 2024-06-04 with web search, image gen, sandboxed bash, file tools, GitHub PR workflow (official)",
+      "Agent Arena derives leaderboards from causal evaluation of real user tasks; 160,480 tasks in one 7-day slice (official methodology blog)",
+      "AI Now demonstrated out-of-the-box prompt-injection RCE against stock Claude Code and Codex while reviewing a poisoned library (July 2026)",
+      "Anthropic postmortem (Apr 2026): three harness/infra bugs caused perceived model quality drop — reasoning depth, reasoning-history caching wipe ('context rot'), verbosity system prompt (-3%); fixed v2.1.116; every system-prompt change now gated on model-specific evals",
+      "Subagent/background-task metering bugs hit BOTH vendors in 2026: Claude Code (subagent multiplication, Jun 2026) and Codex (auto-review/helpers running twice + phantom dashboard charges, Jun 2026; similar Mar 2026)",
+      "anthropics/claude-code has 12,513 open issues (live API, 2026-09-11); Codex top open bug #28756 has 1,123 comments",
+      "OpenAI logged ~166 incidents in ~9 months (~18/month) through Jul 2026; uptime 99.94% APIs / 99.62% ChatGPT / 99.98% Codex",
+      "Session/resume is the most regression-prone subsystem in both majors (sandbox-gate regression 2.1.120, crash-on-resume, WSL transport failures, 5MB transcript loss)",
+      "Long-horizon benchmarks collapse agent pass rates: 25% (SWE-EVO) vs 72.8% (SWE-bench Verified); ~18% of agent patches regress previously passing tests (SWE-bench-secret)",
+      "Qwen Code Agent Arena (open-source arena implementation) documents classic arena challenges: silently dropped config, no diff preview, no session resumption, worktree cleanup bugs",
+      "MCP is the connector standard: 97M+ monthly SDK downloads, 10,000+ public servers (Anthropic, Dec 2025); governed by Agentic AI Foundation (Linux Foundation); protocol has NO built-in authz/RBAC per NSA May 2026; tool-poisoning client defense varies 0-100% (arXiv 2603.22489)",
+      "OTel GenAI Semantic Conventions (v1.41) are the observability standard; VS Code Copilot, Codex, and Claude Code already emit OTel telemetry",
+      "Prompt caching ~90% / routing cascade 75-85% / combined optimization 80-95% cost reduction; agent workloads cost 3-10x chat",
+      "Firecracker microVM ~150ms cold start (~50K LoC Rust VMM) is the production isolation tier for untrusted model-generated code",
+      "Durable execution is baseline infrastructure: Temporal $300M/$5B (Feb 2026), 9.1T executions; Postgres-based checkpointing (DBOS/LangGraph) requires zero new infra",
+      "EU AI Act: Art. 5 prohibitions + Art. 50 transparency enforceable from Aug 2, 2026; high-risk Chapter III (incl. Art. 12 tamper-evident logs >= 6 months, Art. 14 human oversight) same date; fines to EUR 35M / 7%",
+      "Public benchmarks are compromised as primary signal: contamination 5-15 pts; UCB RDI reward-hacked 8 benchmarks to ~100%; METR found 30%+ reward hacking; harness adds 5-30 pts; environment moves scores ~18 pts",
+      "VERIFIED vs PRIMARY (V1, fetched 2026-09-11): official SWE-bench Verified top = 79.2% (Claude 4.5 Opus via agents); mini-SWE-agent harness Feb 2026: Opus 4.5 high 76.8% @$0.75, Gemini 3 Flash high 75.8% @$0.36, MiniMax M2.5 high 75.8% @$0.07, GPT-5.2 high 72.8% — aggregator claims of 88-95% NOT supported; C1 confirmed as inflation",
+      "VERIFIED vs PRIMARY (V2, fetched 2026-09-11): current official Terminal-Bench top = 58.2% (GPT-6 Astra max + Codex, $3.3k full run); corpus TB2.0 citations (77.3% Codex) were point-in-time correct for v2.0 — benchmark version changed; new model generation (GPT-6 Astra, Fable 5.1, Opus 5, Sonnet 5) validates churn trigger",
+      "M1 CLOSED: deterministic policy enforcement on every tool call — Cerbos sub-1ms YAML PDP purpose-built for agent/MCP authz (kill-switch, policy-version lineage); Cedar typed-model dominates MCP enforcement (lower p99 under concurrency); OPA for infra policy. LLMs cannot make enforcement decisions. Rule R15",
+      "M2 CLOSED: thinking tokens billed as output ($15-25/M) → 3-10x per-call cost (measured 7.3x); recursive loops without per-turn thinking caps cost $40-100/task; production pattern = tiered budgets (0/1.5K/5K) + per-call cost caps; Claude explicit budget_tokens (debuggable) vs o-series reasoning_effort (opaque). Rule R14",
+      "M4 CLOSED: 2026 RAG baseline = hybrid (BM25+dense, RRF) → cross-encoder rerank → 6-8 chunks → generation with citations; recursive chunking 300-500 tokens/10-15% overlap default; hybrid+rerank = +25-40% precision over naive; faithfulness is the most critical metric (claim-by-claim verification); agentic RAG creates an audit problem — provenance must be designed in. Rule R16"
+    ],
+    "well_supported": [
+      "Prompt injection is the primary threat to coding agents; cannot be fully prevented — containment is the correct posture (NVIDIA, OWASP-aligned, multiple independent)",
+      "Priority order for 'best': eval-driven engineering, containment-first security, context discipline, model selection with fallbacks",
+      "Claude Code strengths: planning, large-codebase reasoning; Codex strengths: speed, cloud tasks, computer use, UX polish",
+      "MicroVMs (Firecracker/Kata) are the appropriate isolation tier for untrusted agent code execution in production",
+      "Simplicity-first: most production needs are workflows, not autonomous agents (Anthropic guidance, still industry reference 2026)",
+      "Agent failure taxonomy: strong models fail on instruction following; weak models on tool use/syntax; older models loop or terminate early; model rankings are scaffold-sensitive (SWE-EVO)",
+      "The five recurring cross-vendor bug families: context/caching (masquerades as model regression), subagent/metering accounting, session/resume state, sandbox edge-case correctness, capacity/rate-limit UX"
+    ],
+    "inferences": [
+      "Build order (loop -> sandbox -> permissions -> memory -> skills/subagents -> MCP -> product) mirrors incumbent evolution and is the correct path for a new entrant",
+      "A new entrant should compete on one signature surface (e.g., beginner-friendly Windows experience), not feature parity",
+      "Skills+MCP composition pattern (MCP=ability, skill=know-how) transfers to any new harness"
+    ],
+    "contested": [
+      "All aggregator benchmark rankings and exact scores (C1)",
+      "Existence/status details of certain named 2026 models in low-quality aggregator blogs (not relied upon)"
+    ],
+    "speculation": [],
+    "unknowns": [
+      "Arena Agent Mode internals",
+      "Whether 'Claude Code browser use' claims reflect built-in computer-use (C2)"
+    ],
+    "provenance": [
+      "All structural claims traced to S1-S26 in DEEP_RESEARCH_REPORT.md §16, retrieved 2026-09-11",
+      "Direct primary observation: this mission ran inside Arena Agent Mode (sandbox + git branch + tool suite + previews), consistent with official docs"
+    ]
+  },
+
+  "audit": {
+    "current_state": "Repository /home/user/Agent contained only README.md ('# Agent') before this mission; research artifacts added on branch arena/01a08e0b-agent",
+    "architecture": "N/A — empty starter repo; reference architecture for the target system defined in report §14.2",
+    "data_accuracy": "Benchmark data from aggregators unverified against primary benchmark repos; flagged CONTESTED; no repo data to audit",
+    "reliability": "N/A — no existing system; failure modes for the planned system enumerated in report §10",
+    "security": "No code exists yet; security baseline for any build defined in report §14.5 and is the #2 priority lever",
+    "gaps": [
+      "No user constraints gathered (budget, audience, platform) — blocking for final scoping",
+      "No eval suite exists — must precede further harness work",
+      "README.md does not describe the project or link this report"
+    ],
+    "solid_components": [
+      "Clean, version-controlled starting point (git initialized, single branch)"
+    ],
+    "risks": [
+      "R1: prompt injection/RCE if security baseline skipped — CRITICAL",
+      "R2: cost blowup without budgets/stop conditions — HIGH",
+      "R3: vendor churn invalidating tuning — MEDIUM (mitigated by provider-agnostic harness)",
+      "R4: overbuilding before eval-driven demand — MEDIUM",
+      "R5: context rot in long sessions — CRITICAL (vendor postmortem shows recurring)",
+      "R6: session/resume state corruption — HIGH (most-churned bug class in both majors)",
+      "R7: provider capacity incidents — MEDIUM-HIGH (~18/month cadence observed at OpenAI)"
+    ],
+    "recommendations": [
+      "R1: build harness on frontier APIs; never the model",
+      "R2: order: eval -> sandbox -> loop -> context -> product",
+      "R3: contain, don't detect: OS-enforced sandbox + deterministic action policy",
+      "R4: choose Path A/B/C (§14.3) based on user decision",
+      "R5: gate every system-prompt/context/metering change on model-specific evals (vendor process fix adopted as our rule)",
+      "R6: eval suite must include regression cases (pass-to-fail detection), long-horizon tasks, and harness self-tests (resume/replay, metering, sandbox golden paths + adversarial)",
+      "R7: session state is a first-class subsystem; telemetry must classify errors (model/context/orchestration/metering/sandbox/capacity)"
+    ]
+  },
+
+  "change": {
+    "authorized": true,
+    "scope": "Git provenance only (user-authorized 2026-09-11): commit the research corpus and push to the session branch arena/01a08e0b-agent. No code, no dependencies, no config changes.",
+    "impact_analysis": [
+      "Non-destructive: all files already present in working tree; commit records them in git history; push publishes to the session branch only",
+      "No existing tracked files modified beyond research docs; README.md updated (additive content)"
+    ],
+    "rollback_plan": "Revert commit locally (git revert) and force-push only with user authorization; or leave history and amend in a follow-up commit (preferred).",
+    "baseline": {
+      "git_status_before": "clean, branch arena/01a08e0b-agent, only README.md",
+      "git_status_after": "13 research files committed; working tree clean"
+    },
+    "changes_made": [
+      "ADDED DEEP_RESEARCH_REPORT.md",
+      "ADDED BUGS_FIXES_CHALLENGES.md",
+      "ADDED docs/control-plane.json (kept current through all passes)",
+      "ADDED docs/core/ — 00-INDEX, 01-foundations, 02-models-economics, 03-context-memory, 04-tools-protocols, 05-orchestration-runtime, 06-evaluation-quality, 07-security-compliance, 08-ux-product, 09-gaps-disconfirmation, 10-operations-pathA",
+      "UPDATED README.md — project description + core KB links",
+      "COMMITTED + PUSHED research corpus to arena/01a08e0b-agent (user-authorized)"
+    ]
+  },
+
+  "validation": {
+    "build": "NOT_APPLICABLE",
+    "tests": "NOT_APPLICABLE",
+    "smoke_tests": "NOT_APPLICABLE",
+    "data_correctness": "NOT_RUN",
+    "reliability": "NOT_RUN",
+    "security": "NOT_RUN",
+    "regression": "NOT_APPLICABLE",
+    "final_status": "RESEARCH_DELIVERED (core KB 11 files + 2 reports + control-plane) · PATH_A_REGISTERED · GIT_PUSHED"
+  },
+
+  "monitoring": {
+    "required": true,
+    "signals": [
+      "Model releases and leaderboard methodology changes",
+      "Agent-runtime security advisories (CVE cadence is monthly-class)",
+      "Arena Agent Mode feature changes (official roadmap states tools will be added)",
+      "Vendor pricing/tier changes",
+      "Own-task eval results once the harness exists"
+    ],
+    "thresholds": [
+      "Any sandbox/permission escape finding => release blocker for any built system",
+      "Own-task eval pass-rate drop >10% => stop and investigate before new features",
+      ">2 quarters without landscape re-check => full re-evaluation"
+    ],
+    "reevaluation_triggers": [
+      "Assumption change (model/vendor positioning)",
+      "New contradictory evidence (benchmarks, exploits)",
+      "Failures in any built system",
+      "Decision outcomes diverging from expectations",
+      "Quarterly scheduled re-check"
+    ]
+  }
+}
