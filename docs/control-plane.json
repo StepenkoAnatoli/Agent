@@ -3,9 +3,9 @@
 
   "mission": {
     "objective": "Produce accurate, decision-useful understanding of Claude Code, ChatGPT/Codex, and Arena.ai, and derive a reliable blueprint for building the best such agent system — ONE system; research documented as the project core",
-    "decision": "USER-DECIDED (2026-09-11): Path A — no build; use the best existing agents (Arena Agent Mode primary, ChatGPT/Codex and Claude Code complementary) for research & knowledge work. The research corpus is the deliverable and the operating manual (docs/core/10-operations-pathA.md). Audience recommendation (user asked to suggest): individual researcher / knowledge worker on Windows, web-first, zero-terminal default.",
-    "task_type": "mixed: deep_research + research_architecture + security_analysis + reliability_bug_analysis + knowledge_base_construction + primary_verification + operations_playbook",
-    "status": "RESEARCH_COMPLETE (core KB: 11 files + 2 report artifacts) · PATH_A_REGISTERED · GIT_COMMIT_PUSH_AUTHORIZED_AND_EXECUTED"
+    "decision": "USER-DECIDED (2026-09-11): Path A — no build; use the best existing agents (Arena Agent Mode primary, ChatGPT/Codex and Claude Code complementary) for research & knowledge work. The research corpus is the deliverable and the operating manual (docs/core/10-operations-pathA.md). Audience recommendation (user asked to suggest): individual researcher / knowledge worker on Windows, web-first, zero-terminal default. SUPERSEDED same day by USER REVERSAL (verbatim): 'i want this agent to work on my local pc and it needs to look like claude or chat gpt the simplicity of the design.' → BUILD IN SCOPE again, delivered under /app (see build block).",
+    "task_type": "mixed: deep_research + research_architecture + security_analysis + reliability_bug_analysis + knowledge_base_construction + primary_verification + operations_playbook + local_agent_build",
+    "status": "RESEARCH_COMPLETE (core KB: 11 files + 2 report artifacts) · PATH_A_REGISTERED_THEN_SUPERSEDED · BUILD_DELIVERED (app/, smoke-tested) · GIT_COMMIT_PUSH_AUTHORIZED_AND_EXECUTED"
   },
 
   "modes": {
@@ -16,7 +16,7 @@
     "reliability": true,
     "security": true,
     "agent_evaluation": false,
-    "implementation": false,
+    "implementation": true,
     "maintenance": false,
     "monitoring": true,
     "finalization": false
@@ -44,13 +44,11 @@
       "Arena Agent Mode internal architecture (isolation tech, routing, eval scoring)",
       "Arena public status/incident history — no official bug tracker found",
       "Model release churn — quarterly re-evaluation required",
-      "User budget/team/audience/target platform (Windows vs cloud) + build path A/B/C — THE blocking decision (scope question asked 2026-09-11)",
+      "User budget/team/audience/target platform (Windows vs cloud) + build path A/B/C — CLOSED 2026-09-11 by user directive: local-PC agent, Claude/ChatGPT-simple UI (supersedes Path A). See build block.",
       "M3-M10 material research gaps (docs/core/09 §0): M4 CLOSED this pass (03 §3.8); M3, M5-M10 OUT OF SCOPE per user decision (Path A, research scope) — parked, re-open on scope change. M1 and M2 CLOSED (07 §7.6, 02 §2.8)",
       "B3 git provenance — CLOSED by user: commit & push authorized and executed 2026-09-11"
     ],
-    "blocking_unknowns": [
-      "User decision: which build path (A/B/C) and constraints"
-    ],
+    "blocking_unknowns": [],
     "contradictions": [
       "C1: SWE-bench values differ 5-7 pts across aggregators for same model — unresolved, flagged CONTESTED",
       "C2: Claude Code browser-use claims conflict — likely definitional, UNKNOWN",
@@ -162,15 +160,16 @@
 
   "change": {
     "authorized": true,
-    "scope": "Git provenance only (user-authorized 2026-09-11): commit the research corpus and push to the session branch arena/01a08e0b-agent. No code, no dependencies, no config changes.",
+    "scope": "Turn 1 (user-authorized 2026-09-11): commit the research corpus and push to the session branch arena/01a08e0b-agent. Turn 2 (user directive 2026-09-11): build the local-PC agent with Claude/ChatGPT-style UI — new code under app/, app-local Python venv + dependencies (fastapi/uvicorn/httpx) required for the app to run locally; no other installs/deletions; keys and conversation data gitignored.",
     "impact_analysis": [
-      "Non-destructive: all files already present in working tree; commit records them in git history; push publishes to the session branch only",
-      "No existing tracked files modified beyond research docs; README.md updated (additive content)"
+      "Turn 1: non-destructive — all files already present in working tree; push publishes to the session branch only",
+      "Turn 2: purely additive — new app/ subtree; no existing research files modified except README.md (additive) and control-plane/gaps updates; data/ and workspace/ gitignored so no secrets can be committed"
     ],
-    "rollback_plan": "Revert commit locally (git revert) and force-push only with user authorization; or leave history and amend in a follow-up commit (preferred).",
+    "rollback_plan": "Delete app/ subtree or revert the build commit (git revert); app keeps no state outside app/data + app/workspace; removing them returns the machine to pre-build state. No system-level changes were made.",
     "baseline": {
       "git_status_before": "clean, branch arena/01a08e0b-agent, only README.md",
-      "git_status_after": "13 research files committed; working tree clean"
+      "git_status_after": "13 research files committed; working tree clean",
+      "git_status_after_build": "app/ added (12 files + 2 tests); research corpus untouched; data/ + workspace/ excluded"
     },
     "changes_made": [
       "ADDED DEEP_RESEARCH_REPORT.md",
@@ -178,7 +177,10 @@
       "ADDED docs/control-plane.json (kept current through all passes)",
       "ADDED docs/core/ — 00-INDEX, 01-foundations, 02-models-economics, 03-context-memory, 04-tools-protocols, 05-orchestration-runtime, 06-evaluation-quality, 07-security-compliance, 08-ux-product, 09-gaps-disconfirmation, 10-operations-pathA",
       "UPDATED README.md — project description + core KB links",
-      "COMMITTED + PUSHED research corpus to arena/01a08e0b-agent (user-authorized)"
+      "COMMITTED + PUSHED research corpus to arena/01a08e0b-agent (user-authorized)",
+      "ADDED app/ — FastAPI server, 3 providers, agent loop, 3 workspace tools, SQLite storage, system prompt, Claude/ChatGPT-style UI, launchers, README, 2 test suites (see build block)",
+      "UPDATED docs/control-plane.json + docs/core/09-gaps-disconfirmation.md — scope change and build registered with known gaps",
+      "INSTALLED app-local venv at app/.venv (fastapi, uvicorn, httpx) — sandbox only, gitignored; user machine installs via start.bat/start.sh"
     ]
   },
 
@@ -190,7 +192,46 @@
     "reliability": "NOT_RUN",
     "security": "NOT_RUN",
     "regression": "NOT_APPLICABLE",
-    "final_status": "RESEARCH_DELIVERED (core KB 11 files + 2 reports + control-plane) · PATH_A_REGISTERED · GIT_PUSHED"
+    "final_status": "RESEARCH_DELIVERED (core KB 11 files + 2 reports + control-plane) · PATH_A_REGISTERED_THEN_SUPERSEDED · BUILD_DELIVERED_AND_SMOKE_TESTED · GIT_PUSHED"
+  },
+
+  "build": {
+    "directive": "USER (2026-09-11, verbatim): 'i want this agent to work on my local pc and it needs to look like claude or chat gpt the simplicity of the design.'",
+    "scope": "One system: a local-PC agent with a Claude/ChatGPT-style minimal chat UI. Runs on the user's machine (Windows/macOS/Linux), Python 3.11 + FastAPI on 127.0.0.1:8000, single-page chat UI (no build step), SQLite persistence, SSE streaming with plain-JSON fallback.",
+    "deliverables": [
+      "app/main.py — FastAPI server: static UI, /api/config, /api/settings, conversations CRUD, /api/chat/{cid} SSE + ?plain=1 fallback, /api/chat/{cid}/stop",
+      "app/config.py — provider registry (Anthropic / OpenAI-compatible / Ollama local no-key), settings.json persistence, model lists, pricing table + estimate_cost()",
+      "app/providers.py — 3 streaming provider clients with canonical events; R12-compliant retry (transient errors only, backoff+jitter); ProviderError kinds auth|network|timeout|rate_limited|tools_unsupported|request|provider",
+      "app/agent.py — run_agent(): max_iterations budget (default 6, R3/R7), visible tool events, token/cost accounting (R14 spirit), graceful degradation when a local model lacks tool support",
+      "app/tools.py — web_search (keyless DuckDuckGo Lite, <=5 results), read_file, list_dir; ACI-style descriptions (docs/core/04); workspace-scoped via path resolution enforcement; content-is-data rule in system prompt",
+      "app/storage.py — SQLite conversations+messages with meta JSON (tool traces, usage, cost); RLock (self-deadlock bug found in smoke test and fixed)",
+      "app/system_prompt.py — SYSTEM_PROMPT local-agent/1.0: tool guidance, <=3 inline citations, workspace-only files, retrieved content = DATA never instructions, language matching",
+      "app/static/index.html + style.css + app.js — Claude/ChatGPT-style UI: sidebar chats, streaming caret, tool-event chips, 3 themes (light / claude / dark), settings modal, usage+cost footer, stop button, copy-code buttons",
+      "app/start.bat + start.sh — double-click launchers (venv + pip install + open browser)",
+      "app/tests/test_agent_loop.py + test_sse_endpoint.py — mock-provider tests of the loop, budget cap, workspace escape refusal, degradation, and the full HTTP SSE pipeline"
+    ],
+    "tests_run": [
+      "Smoke (curl vs live server): GET / 200; static assets 200; conversation CRUD; chat plain 502 auth-error with kind=auth; SSE auth-error event clean (curl exit 0); Ollama network-error event; persistence + auto-title; settings roundtrip",
+      "test_agent_loop.py: happy-path tool loop (usage totals 52/14, cost>0), workspace escape refused, iteration cap (3 tool_ends + notice), tools-unsupported degradation — ALL PASS",
+      "test_sse_endpoint.py: real HTTP SSE sequence delta->usage->tool_start->tool_end->delta->usage->done, persisted assistant message with tool trace, client-abort path — ALL PASS",
+      "node --check app.js: syntax OK; all #ids cross-checked between index.html and app.js",
+      "Bugs found & fixed during testing: (1) threading.Lock self-deadlock in set_first_title (storage.py); (2) ProviderError escaping before first yield of run_agent broke SSE responses; (3) model-name resolution for cost estimates; (4) frontend typing-indicator/notice-before-delta handling"
+    ],
+    "known_gaps": [
+      "Sandbox has no direct outbound internet — live DuckDuckGo result parsing (tools.py regex) and real provider API calls could NOT be verified here; graceful-failure paths verified instead. Both must be confirmed on the user's machine (first real chat).",
+      "Browser rendering not exercised in-sandbox (no browser); CSS/JS reviewed and syntax-checked only.",
+      "Markdown rendering uses CDN marked+DOMPurify; falls back to plain escaped text if offline.",
+      "No LLM-powered eval of answer quality yet (docs/core/04 own-task eval strategy applies once a key is configured).",
+      "Keyless DDG search is best-effort; a Tavily key slot exists in settings for a stronger option (unused by default)."
+    ],
+    "research_rules_applied": [
+      "R3/R7 iteration budget -> max_iterations setting (default 6) + notice at cap",
+      "R12 retry only transient errors with backoff+jitter -> providers._post_stream",
+      "R14 cost guardrails -> usage+tokens+cost footer, per-run accounting, thinking-cost awareness documented in 02",
+      "R15 deterministic policy on tool calls -> workspace path containment + only 3 read-only tools; provider keys confined to settings.json (gitignored)",
+      "R16 provenance/citations -> system prompt cites <=3 inline [Title](url); tool traces stored per message",
+      "ACI tool descriptions (04) -> tools.py; content-is-data (06) -> system prompt; UX simplicity -> Claude/ChatGPT-style single-column chat"
+    ]
   },
 
   "monitoring": {

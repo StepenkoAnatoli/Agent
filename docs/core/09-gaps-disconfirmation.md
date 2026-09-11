@@ -15,8 +15,29 @@
 | M2 (reasoning config) | **CLOSED** | Documented in 02 §2.8 + Rule R14 — thinking tokens billed as output (3–10× per-call cost), per-turn tiered budgets, runaway-loop guard. |
 | M4 (RAG depth) | **CLOSED** | Documented in 03 §3.8 + Rule R16 — 2026 baseline pipeline (hybrid + RRF + cross-encoder rerank, 6–8 chunks), chunking defaults, latency budgets, faithfulness-first evaluation, agentic-RAG audit warning. |
 | M3, M5–M10 | **NOT IN SCOPE** — user decision 2026-09-11: Path A (no build), scope = research & knowledge work | Browser-agent architecture (M3), voice (M5), multi-user governance (M6), GDPR/non-EU (M7), agent identity (M8), structured-output mechanisms (M9), local serving (M10) are parked; re-open only if scope changes. |
-| B1 (scope) | **CLOSED (user)** | Path A · research & knowledge work · audience recommendation: individual researcher / knowledge worker on Windows, web-first (§10.1, 10.7). |
+| B1 (scope) | **CLOSED (user)** | Path A · research & knowledge work · audience recommendation: individual researcher / knowledge worker on Windows, web-first (§10.1, 10.7). **SUPERSEDED same day (2026-09-11):** user directed a build — "i want this agent to work on my local pc and it needs to look like claude or chat gpt the simplicity of the design." → local agent delivered under `app/`. |
 | B3 (git provenance) | **CLOSED (user)** | Commit & push authorized; executed 2026-09-11. |
+
+---
+
+## 0b. Update log — pass 10 (2026-09-11): build disconfirmation audit
+
+The build directive reversed Path A the same day. Instead of ignoring our own
+audit practices, this section discloses what the delivered build did **not**
+get to verify, and what it deliberately did not implement.
+
+| # | Gap | Status | Disclosure |
+|---|---|---|---|
+| BU1 (live provider calls) | **OPEN — requires user machine** | The sandbox has no direct outbound internet, so no real Anthropic/OpenAI/Ollama call could be exercised. Verified instead: auth-missing error path (kind=auth, both SSE + plain), network-unreachable path (Ollama down → kind=network event), and full SSE event pipeline via a mock provider over real HTTP. First real chat on the user's PC is the acceptance test. |
+| BU2 (live web search parsing) | **OPEN — requires user machine** | Same cause: `tools.py` parses DuckDuckGo Lite HTML with result-link/result-snippet regexes; verified only the failure path (graceful "Search failed" result). If DDG changes markup, the tool degrades to "No results" rather than crashing — acceptable failure mode, but real-query confirmation is pending. A Tavily key slot exists in settings as a fallback upgrade. |
+| BU3 (browser rendering) | **OPEN — no browser in sandbox** | CSS/JS reviewed and syntax-checked (node --check) but not visually exercised. Design is standard flexbox with conservative compatibility choices; risk is cosmetic, not functional. |
+| BU4 (answer quality / own-task evals) | **NOT RUN** | Per 06's own-task eval strategy, quality evals need a real model + key. Deferred to the user's machine (first real sessions double as the eval set). |
+| BU5 (multi-user / auth) | **NOT IN SCOPE** | Single-user local app bound to 127.0.0.1. Deliberately no login, no TLS, no multi-user — consistent with the "one system on my local PC" directive; if ever exposed beyond localhost this becomes a blocking change. |
+| BU6 (write/exec tools) | **NOT IN SCOPE — deliberate** | Only read_file/list_dir/web_search exist. The corpus (07, D3) requires OS-enforced containment before any write/execute surface; the local build keeps the read-only sandbox until that exists. |
+| BU7 (budget guardrails beyond iteration cap) | **PARTIAL — disclosed** | Per-run iteration cap (default 6) + usage/cost footer exist; per-call dollar caps and thinking-token budgets (R14) are documented but not enforced yet. Ollama local is free; a runaway cloud loop is bounded by the iteration cap only. |
+| BU8 (metrics/OTel) | **NOT RUN** | Corpus §05/06 requires OTel GenAI telemetry in a real product; the local build logs via uvicorn only. Acceptable for a single-user local tool; required before anything production-grade. |
+
+**Bugs found by the build's own tests (fixed):** (1) `threading.Lock` self-deadlock in storage `set_first_title` — found by smoke test, fixed with RLock + inline update; (2) `ProviderError` raised before the first yield of `run_agent` broke SSE responses at the HTTP layer — found by SSE curl test, fixed by guarding `get_provider()`; (3) cost estimation used raw settings model name instead of the provider-resolved model — fixed; (4) frontend typing indicator was cleared before the fetch and notice events before first delta would crash — fixed with a `startContent` gate. This is exactly the failure family the corpus predicts (session/state plumbing bugs), validated in miniature.
 
 ---
 

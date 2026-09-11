@@ -24,4 +24,16 @@ One system. The research is the core.
 
 ## Status
 
-`RESEARCH_COMPLETE · IMPLEMENTATION_NOT_AUTHORIZED` — implementation begins on user authorization of a build path (see 00-INDEX §Core Architecture Decisions).
+`RESEARCH_COMPLETE · BUILD_DELIVERED` — on 2026-09-11 the user reversed Path A and directed a build:
+*"i want this agent to work on my local pc and it needs to look like claude or chat gpt the simplicity of the design."*
+The agent now exists under **[app/](app/)** — a local-PC chat agent with a Claude/ChatGPT-style UI. See **[app/README.md](app/README.md)** for the 3-step Windows setup (or `start.sh` on macOS/Linux).
+
+## The App (app/)
+
+A single system that runs on your computer: Python + FastAPI serving a clean
+one-page chat UI at `http://localhost:8000`. Works with **Claude** (Anthropic
+API), **ChatGPT** (OpenAI API), or **fully local models** (Ollama, no key). It
+streams answers, searches the web, reads files in a workspace folder you pick,
+keeps chats in a local SQLite file, and shows token usage and cost per answer.
+Everything — settings, keys, chats — stays on your machine. `data/` and
+`workspace/` are gitignored, so your key is never committed.

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>✦</text></svg>">
+</head>
+<body data-theme="light">
+<div class="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="logo">✦</span><span class="brand-name">Agent</span>
+      <button class="icon-btn" id="sidebarClose" title="Close sidebar">✕</button>
+    </div>
+    <button class="new-chat" id="newChatBtn"><span class="plus">＋</span> New chat</button>
+    <nav class="conv-list" id="convList"></nav>
+    <div class="sidebar-foot">
+      <button class="foot-btn" id="themeBtn" title="Change theme"><span id="themeIcon">◐</span> <span id="themeLabel">Theme</span></button>
+      <button class="foot-btn" id="settingsBtn" title="Settings"><span>⚙</span> <span>Settings</span></button>
+      <div class="status" id="statusRow">
+        <span class="dot" id="statusDot"></span>
+        <span class="status-text" id="statusText">Not configured</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+    <header class="topbar">
+      <button class="icon-btn" id="sidebarOpen" title="Open sidebar">☰</button>
+      <div class="model-badge" id="modelBadge">
+        <span class="dot dot-inline"></span><span id="modelBadgeText">…</span>
+      </div>
+    </header>
+
+    <div class="messages" id="messages">
+      <div class="empty-state" id="emptyState">
+        <div class="empty-logo">✦</div>
+        <h1 id="greeting">How can I help you today?</h1>
+        <div class="suggestions" id="suggestions">
+          <button class="suggestion">Research a current topic on the web</button>
+          <button class="suggestion">List what's in my workspace and summarize a file</button>
+          <button class="suggestion">Explain a concept, step by step</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="composer-wrap">
+      <div class="composer" id="composer">
+        <textarea id="input" rows="1" placeholder="Message Agent…"></textarea>
+        <button class="send-btn" id="sendBtn" title="Send">➤</button>
+        <button class="send-btn stop" id="stopBtn" title="Stop" hidden>■</button>
+      </div>
+      <div class="hint">Agent can search the web and read files in your workspace · Results can be wrong — verify important facts</div>
+    </div>
+  </main>
+</div>
+
+<!-- ============ SETTINGS MODAL ============ -->
+<div class="modal-backdrop" id="settingsModal" hidden>
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Settings</h2>
+      <button class="icon-btn" id="settingsClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <label class="field">
+        <span>Provider</span>
+        <select id="setProvider"></select>
+      </label>
+      <label class="field" id="fieldModel">
+        <span>Model</span>
+        <input type="text" id="setModel" list="modelList" placeholder="e.g. claude-sonnet-4-5">
+        <datalist id="modelList"></datalist>
+      </label>
+      <label class="field" id="fieldKey">
+        <span>API key</span>
+        <input type="password" id="setKey" placeholder="sk-…" autocomplete="off">
+        <small id="keyHint" class="field-hint"></small>
+      </label>
+      <label class="field" id="fieldBaseUrl">
+        <span>Base URL <small>(advanced)</small></span>
+        <input type="text" id="setBaseUrl" placeholder="https://api.openai.com/v1">
+      </label>
+      <label class="field">
+        <span>Workspace folder <small>(what the agent can read)</small></span>
+        <input type="text" id="setWorkspace" placeholder="/path/to/folder">
+      </label>
+      <label class="field">
+        <span>Max tool steps per answer</span>
+        <input type="number" id="setMaxIter" min="1" max="12" value="6">
+      </label>
+    </div>
+    <div class="modal-foot">
+      <span class="save-status" id="saveStatus"></span>
+      <button class="primary-btn" id="saveSettings">Save</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>
