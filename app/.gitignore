@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Local data — API keys, conversations, workspace files (never commit these)
+data/
+workspace/*
+!workspace/.gitkeep
