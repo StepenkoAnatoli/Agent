@@ -49,3 +49,10 @@ For the browser surface: AG-UI event streaming (tool-call events to the UI in re
 ## 4.6 Our tool catalog v1 (evidence-derived)
 
 Core (always loaded, ≤7): `read_file`, `write_file`/`edit_file`, `bash` (sandboxed), `web_search`, `fetch_page`, `ask_user`, `todo_write` (state). Deferred/discoverable: git operations, file search, test runner, MCP tools, skill invocations. Each conforms to Rule R5. The permission gate wraps every mutating tool (ch. 07).
+
+## 4.7 Research lineage — tool use and skills
+
+`ESTABLISHED_FACT` (primary papers K85, K90):
+
+- **Toolformer** (K85): a model teaches itself which APIs to call (calculator, Q&A, search, translation, calendar), when, and with which arguments; a sampled call is kept only if it helps predict the following text. It established that tool use can be learned rather than hard-coded. Today's frontier models ship with this ability trained in, so the harness's job shifts to tool *design* (§4.1–4.2).
+- **Voyager** (K90): a Minecraft agent that stores each working behaviour as **executable code in a skill library**, retrieves skills by description, and improves them with environment feedback, execution errors and self-verification, guided by an automatic curriculum. `REASONABLE_INFERENCE`: the closest research precursor of the skills pattern (§4.4): reusable procedures stored outside the model, loaded when relevant.
