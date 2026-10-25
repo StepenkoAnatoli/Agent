@@ -61,4 +61,17 @@ Six canonical workflow patterns (S16, S17): augmented LLM call · prompt chainin
 
 Evidence across all passes converges on: **harness over model, evals over leaderboards, containment over detection, simplicity over architecture** (report 1 §13, §14). The cost of being wrong on any of these is documented in the bugs report (vendor postmortems) and ch. 07 (real-world RCE).
 
+## 1.6 Research lineage — where the core loop comes from
+
+`ESTABLISHED_FACT` (primary papers K83, K84, K89, K92):
+
+| Idea in this knowledge base | Origin paper | What it showed |
+|---|---|---|
+| The model reasons before answering | **Chain-of-Thought** (K83) | Few-shot exemplars with intermediate reasoning steps improve arithmetic, commonsense and symbolic reasoning; the gain appears only in large models |
+| The core loop of §1.1 (reason → act → observe) | **ReAct** (K84) | Interleaving reasoning traces with tool actions beats reasoning-only and acting-only prompting on QA, fact-checking and interactive tasks |
+| Planning as search, not one line of thought | **Tree of Thoughts** (K89) | Branching over "thoughts" with self-evaluation and backtracking: Game of 24 solved 74% vs 4% with chain-of-thought (GPT-4) |
+| Agent = profile + memory + planning + action | **Survey** (K92) | The standard decomposition of LLM agents into four modules; maps to chapters 03 (memory), 04 (action/tools) and 05 (planning/orchestration) |
+
+The loop in §1.1 is ReAct with the incumbents' engineering layers added on top. Tree-of-Thoughts-style search is out of scope for v1 (Rule R1: simplest pattern that passes evaluation).
+
 **Next chapters:** 02 covers the models and the economics of calling them; 03 covers what goes into the context window and how it stays sane.

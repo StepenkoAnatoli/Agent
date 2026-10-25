@@ -60,7 +60,7 @@ Backends: Langfuse (OSS, OTLP endpoint), LangSmith (LangGraph depth), Phoenix/Ar
 - Treat system prompts as **conditionally assembled code**: version control, testing, gradual rollout. Claude Code's 110+ instruction strings are individually testable units (K44). (This is exactly the vendor process fix from bugs report §4.1.)
 - Static vs dynamic split: identity/rules/tool-defs/security = static prefix (cacheable); RAG, summaries, current file, skills = just-in-time injection (K44).
 - **Instruction hierarchy** (system > user > tool output) is trained into models: +63% defense vs prompt extraction — but RL-based attacks still achieve 98% bypass (K44). Conclusion: hierarchy helps; it is **not** the security boundary (that's ch. 07).
-- Reasoning models invert classic prompting: **no chain-of-thought prescriptions**; specify goal, constraints, output contract (K45).
+- Reasoning models invert classic prompting: **no chain-of-thought prescriptions** (the classic technique is K83, ch. 01 §1.6); specify goal, constraints, output contract (K45).
 - 12 system-prompt modules (K45): role, goal, constraints, tool instructions, output format, examples, error handling, reflection, memory, escalation, stop criteria, safety. Our system prompt = these modules, each versioned + eval-gated.
 - "Find the smallest set of high-signal tokens that maximize the likelihood of your desired outcome" (K45) — the compactness principle behind Rules R2/R4.
 

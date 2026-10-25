@@ -126,6 +126,18 @@ Primary/official marked ★. All retrieved 2026-09-11 unless noted.
 | K80 | [Starmorph — RAG techniques compared](https://blog.starmorph.com/blog/rag-techniques-compared-best-practices-guide) | Chunking table, +25–40% precision, decision tree, over-engineering warning |
 | K81 | [Scadea — RAG evaluation metrics](https://scadea.com/evaluating-rag-quality-hallucination-detection-and-answer-accuracy-metrics/) | Faithfulness etc.; framework comparison table |
 | K82 | [ResearchGate — RAGAs paper](https://www.researchgate.net/publication/393020278_RAGAs_Automated_Evaluation_of_Retrieval_Augmented_Generation) | Recall × granularity govern hallucination; metric definitions |
+| K83 | [arXiv 2201.11903v6 — Chain-of-Thought Prompting (Wei et al., 2022) ★](https://arxiv.org/abs/2201.11903v6) | Step-by-step reasoning exemplars; gains emerge with model scale → ch. 01 §1.6 |
+| K84 | [arXiv 2210.03629v3 — ReAct (Yao et al., 2022) ★](https://arxiv.org/abs/2210.03629v3) | Interleaved reason → act → observe loop; origin of the core loop → ch. 01 §1.6 |
+| K85 | [arXiv 2302.04761v1 — Toolformer (Schick et al., 2023) ★](https://arxiv.org/abs/2302.04761v1) | Self-supervised learning of when/how to call APIs → ch. 04 §4.7 |
+| K86 | [arXiv 2303.11366v4 — Reflexion (Shinn et al., 2023) ★](https://arxiv.org/abs/2303.11366v4) | Verbal self-reflection kept in episodic memory, no weight updates → ch. 03 §3.9 |
+| K87 | [arXiv 2303.17580v4 — HuggingGPT (Shen et al., 2023) ★](https://arxiv.org/abs/2303.17580v4) | LLM controller plans and dispatches to specialist models → ch. 05 §5.6 |
+| K88 | [arXiv 2304.03442v2 — Generative Agents (Park et al., 2023) ★](https://arxiv.org/abs/2304.03442v2) | Memory stream, retrieval, reflection, planning → ch. 03 §3.9 |
+| K89 | [arXiv 2305.10601v2 — Tree of Thoughts (Yao et al., 2023) ★](https://arxiv.org/abs/2305.10601v2) | Search over reasoning branches with self-evaluation and backtracking → ch. 01 §1.6 |
+| K90 | [arXiv 2305.16291v2 — Voyager (Wang et al., 2023) ★](https://arxiv.org/abs/2305.16291v2) | Skill library of executable code, automatic curriculum → ch. 04 §4.7 |
+| K91 | [arXiv 2308.08155v2 — AutoGen (Wu et al., 2023) ★](https://arxiv.org/abs/2308.08155v2) | Multi-agent conversation framework → ch. 05 §5.6 |
+| K92 | [arXiv 2308.11432v7 — Survey on LLM-based Autonomous Agents (Wang et al.) ★](https://arxiv.org/abs/2308.11432v7) | Profile / memory / planning / action decomposition → ch. 01 §1.6 |
+
+K83–K92 are the foundational research papers behind the patterns above (added 2026-10-25; links pinned to the version read).
 
 **Carry-over registers:** DEEP_RESEARCH_REPORT.md §16 (S1–S26) · BUGS_FIXES_CHALLENGES.md §12 (B1–B22).
 

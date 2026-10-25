@@ -82,3 +82,11 @@ Client (TUI → web → IDE)  ─▶  API/orchestrator
                                  ├─ skill/memory loader (ch. 03)
                                  └─ telemetry (OTel — ch. 06)
 ```
+
+## 5.6 Research lineage — multi-agent orchestration
+
+`ESTABLISHED_FACT` (primary papers K87, K91):
+
+- **HuggingGPT** (K87): one LLM acts as a **controller** in four stages: task planning, model selection (choosing Hugging Face models by their descriptions), task execution, and response generation. `REASONABLE_INFERENCE`: an early form of the supervisor / orchestrator–worker pattern that §5.1 names the production default.
+- **AutoGen** (K91): multi-agent applications built from **conversable agents** that solve tasks by messaging each other, mixing LLMs, tools and human input. Its community continuation, AG2, is listed in the §5.2 framework table. The handoff failures in §5.1 are the cost of this design; Rule R7 stands.
+

@@ -89,3 +89,10 @@ query → [query rewrite, optional] → hybrid retrieval (BM25 + dense, RRF fusi
 2. Cascade failures: a bad query rewrite tanks everything downstream — keep rewrites cached and cheap (K76).
 
 > **Rule R16 (operations, Path A):** any research deliverable produced through retrieval must ship with **citations traced to retrieved sources**; uncited claims are treated as `UNKNOWN`/`SPECULATION` per the evidence-state discipline (00-INDEX legend). This is the same provenance standard the mission framework (§11) applies to the corpus itself.
+
+## 3.9 Research lineage — agent memory and self-correction
+
+`ESTABLISHED_FACT` (primary papers K86, K88):
+
+- **Generative Agents** (K88): 25 simulated characters, each with a **memory stream** (an append-only log of observations), retrieval scored by **recency, importance and relevance**, periodic **reflection** that writes higher-level conclusions back into memory, and **planning** from that memory. This is the research ancestor of §3.3 ("the log is the agent") and of agent-curated memory files (§3.6).
+- **Reflexion** (K86): after a failed attempt the agent writes a short verbal lesson, keeps it in an episodic memory buffer and reads it on the next attempt; no model weights change. Reported 91% pass@1 on HumanEval vs 80% for GPT-4 alone. This is the evidence base for "let the agent write durable notes" (§3.4) and for Rule R4.
